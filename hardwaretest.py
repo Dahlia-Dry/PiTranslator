@@ -6,17 +6,17 @@ from PIL import Image, ImageDraw, ImageFont
 import RPi.GPIO as GPIO
 
 spi = busio.SPI(board.SCK, MOSI=board.MOSI, MISO=board.MISO)
-ecs = digitalio.DigitalInOut(board.CE0)
+ecs = digitalio.DigitalInOut(board.D5)
 dc = digitalio.DigitalInOut(board.D22)
 rst = digitalio.DigitalInOut(board.D27)
-busy = digitalio.DigitalInOut(board.D17)
+busy = digitalio.DigitalInOut(board.D4)
 srcs = None
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 GPIO.setup(6, GPIO.OUT)
-from adafruit_epd.ssd1675 import Adafruit_SSD1675
-display = Adafruit_SSD1675(122,250, spi, cs_pin=ecs, dc_pin=dc, sramcs_pin=srcs,
+from adafruit_epd.il0373 import Adafruit_IL0373
+display = Adafruit_IL0373(104,212, spi, cs_pin=ecs, dc_pin=dc, sramcs_pin=srcs,
                           rst_pin=rst, busy_pin=busy)
 #for flexible display:
 display.set_black_buffer(1, False)
@@ -65,7 +65,7 @@ def pil_example():
 
 	# Display image.
 	print('displaying image:')
-    GPIO.output(6,GPIO.HIGH)
+	GPIO.output(6,GPIO.HIGH)
 	display.image(image)
 	display.display()
 
@@ -75,7 +75,7 @@ def mono_test():
 	display.hline(80, 30, 60, Adafruit_EPD.BLACK)
 	display.vline(80, 30, 60, Adafruit_EPD.BLACK)
 	print('displaying image:')
-    GPIO.output(6,GPIO.HIGH)
+	GPIO.output(6,GPIO.HIGH)
 	display.display()
 
-mono_test()
+pil_example()
