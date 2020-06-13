@@ -108,14 +108,22 @@ def mono_test(display):
 	display.display()
 
 def blink_test():
+    green.value = False
     while True:
-        green.value = True
+        green.value = False
+        time.sleep(0.5)
         red.value = True
+        time.sleep(0.5)
         yellow1.value = True
+        time.sleep(0.5)
         yellow2.value = True
+        time.sleep(0.5)
         blue1.value = True
+        time.sleep(0.5)
         white1.value = True
+        time.sleep(0.5)
         blue2.value = True
+        time.sleep(0.5)
         white2.value = True
         time.sleep(0.5)
         green.value = False
@@ -126,7 +134,7 @@ def blink_test():
         white1.value = False
         blue2.value = False
         white2.value = False
-
+        print("loop complete")
 
 pil_example(display1)
 pil_example(display2)
