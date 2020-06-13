@@ -3,6 +3,7 @@ import busio
 import board
 from adafruit_epd.epd import Adafruit_EPD
 from PIL import Image, ImageDraw, ImageFont
+import RPi.GPIO as GPIO
 
 spi = busio.SPI(board.SCK, MOSI=board.MOSI, MISO=board.MISO)
 ecs = digitalio.DigitalInOut(board.CE0)
@@ -11,6 +12,9 @@ rst = digitalio.DigitalInOut(board.D27)
 busy = digitalio.DigitalInOut(board.D17)
 srcs = None
 
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+GPIO.setup(6, GPIO.OUT)
 from adafruit_epd.ssd1675 import Adafruit_SSD1675
 display = Adafruit_SSD1675(122,250, spi, cs_pin=ecs, dc_pin=dc, sramcs_pin=srcs,
                           rst_pin=rst, busy_pin=busy)
@@ -61,15 +65,17 @@ def pil_example():
 
 	# Display image.
 	print('displaying image:')
+    GPIO.output(6,GPIO.HIGH)
 	display.image(image)
 	display.display()
 
 def mono_test():
-	display.fill(Adafruit_EPD.WHITE) 
+	display.fill(Adafruit_EPD.WHITE)
 	display.fill_rect(0, 0, 50, 60, Adafruit_EPD.BLACK)
 	display.hline(80, 30, 60, Adafruit_EPD.BLACK)
-	display.vline(80, 30, 60, Adafruit_EPD.BLACK) 
+	display.vline(80, 30, 60, Adafruit_EPD.BLACK)
 	print('displaying image:')
+    GPIO.output(6,GPIO.HIGH)
 	display.display()
 
 mono_test()
