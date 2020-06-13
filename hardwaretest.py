@@ -45,9 +45,9 @@ BACKGROUND_COLOR = BLACK
 FOREGROUND_COLOR = WHITE
 TEXT_COLOR = BLACK
 
-display.rotation = 1
 
 def pil_example(display):
+	display.rotation = 1
 	image = Image.new("RGB", (display.width, display.height))
 
 	# Get drawing object to draw on image.
