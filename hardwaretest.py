@@ -31,33 +31,45 @@ TEXT_COLOR = BLACK
 
 display.rotation = 1
 
-image = Image.new("RGB", (display.width, display.height))
+def pil_example():
+	image = Image.new("RGB", (display.width, display.height))
 
-# Get drawing object to draw on image.
-draw = ImageDraw.Draw(image)
+	# Get drawing object to draw on image.
+	draw = ImageDraw.Draw(image)
 
-# Draw a filled box as the background
-draw.rectangle((0, 0, display.width, display.height), fill=BACKGROUND_COLOR)
+	# Draw a filled box as the background
+	draw.rectangle((0, 0, display.width, display.height), fill=BACKGROUND_COLOR)
 
-# Draw a smaller inner foreground rectangle
-draw.rectangle(
-    (BORDER, BORDER, display.width - BORDER - 1, display.height - BORDER - 1),
-    fill=FOREGROUND_COLOR,
-)
+	# Draw a smaller inner foreground rectangle
+	draw.rectangle(
+    	(BORDER, BORDER, display.width - BORDER - 1, display.height - BORDER - 1),
+    	fill=FOREGROUND_COLOR,
+	)
 
-# Load a TTF Font
-font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", FONTSIZE)
+	# Load a TTF Font
+	font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", FONTSIZE)
 
-# Draw Some Text
-text = "Hello World!"
-(font_width, font_height) = font.getsize(text)
-draw.text(
-    (display.width // 2 - font_width // 2, display.height // 2 - font_height // 2),
-    text,
-    font=font,
-    fill=TEXT_COLOR,
-)
+	# Draw Some Text
+	text = "Hello World!"
+	(font_width, font_height) = font.getsize(text)
+	draw.text(
+    	(display.width // 2 - font_width // 2, display.height // 2 - font_height // 2),
+    	text,
+    	font=font,
+    	fill=TEXT_COLOR,
+	)
 
-# Display image.
-display.image(image)
-display.display()
+	# Display image.
+	print('displaying image:')
+	display.image(image)
+	display.display()
+
+def mono_test():
+	display.fill(Adafruit_EPD.WHITE) 
+	display.fill_rect(0, 0, 50, 60, Adafruit_EPD.BLACK)
+	display.hline(80, 30, 60, Adafruit_EPD.BLACK)
+	display.vline(80, 30, 60, Adafruit_EPD.BLACK) 
+	print('displaying image:')
+	display.display()
+
+mono_test()
