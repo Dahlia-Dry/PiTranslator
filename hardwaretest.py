@@ -11,7 +11,7 @@ rst = digitalio.DigitalInOut(board.D27)
 busy = digitalio.DigitalInOut(board.D17)
 srcs = None
 
-from adafruit_epd.il0373 import Adafruit_SSD1675
+from adafruit_epd.ssd1675 import Adafruit_SSD1675
 display = Adafruit_SSD1675(122,250, spi, cs_pin=ecs, dc_pin=dc, sramcs_pin=srcs,
                           rst_pin=rst, busy_pin=busy)
 #for flexible display:
