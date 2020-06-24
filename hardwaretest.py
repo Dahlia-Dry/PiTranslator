@@ -110,7 +110,7 @@ def mono_test(display):
 def blink_test():
     green.value = False
     while True:
-        green.value = False
+        green.value = True
         time.sleep(0.5)
         red.value = True
         time.sleep(0.5)
