@@ -10,6 +10,7 @@ import xmltodict
 import csv
 import pandas as pd
 import datetime
+import textwrap
 from pynput import keyboard
 
 #SETUP:
@@ -97,6 +98,12 @@ def write_to_screen(display, text, x, y, clear=True):
 	# Draw Some Text
     if type(text) is list:
         for i in range(len(text)):
+            if len(text[i]) > 20:
+                for wrap in textwrap.wrap(text[i],20):
+                    text.insert(i+1, wrap)
+                    x.insert(i+1, 0)
+                    y.insert(i+1, y[i] + display.height)
+        for i in range(len(text)):
             (font_width, font_height) = font.getsize(text[i])
             draw.text(
             	(x[i],y[i]),
@@ -125,7 +132,7 @@ def dictionary(query):
     #query = input()
     try:
         print('def:' + dict[query][0] + '\n' + dict[query][1])
-        font_width, font_height = write_to_screen(display2, query + ':' + dict[query][0]+','+dict[query][1],0,0)
+        font_width, font_height = write_to_screen(display2, [query + ':', dict[query][0]+','+dict[query][1]],[0,0],[0,font_height])
         font_width, font_height = write_to_screen(display1, [query,'Add to Journal?'],[font_width,0],[0,font_height],clear=False)
         add = input('Add to Journal?')
         if add == '':
@@ -156,12 +163,12 @@ def sortjournal(mode):
 #end utility functions--------------------------------------------------------
 def main():
     query = ""
-    font_width, font_height = write_to_screen(display1,'Search:',0,0) 
     while query != '.':
+        font_width, font_height = write_to_screen(display1,'Search:',0,0)
         query = input()
         if query == '.':
             pass
         else:
-            font_width, font_height = write_to_screen(display1,'Search: ',0,0)
+            #font_width, font_height = write_to_screen(display1,'Search: ',0,0)
             dictionary(query)
 main()
