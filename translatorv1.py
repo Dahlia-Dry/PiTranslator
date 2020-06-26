@@ -111,7 +111,7 @@ def write_to_screen(display, text, x, y, clear=True):
                 else:
                     text.insert(i+1, wrap)
                     x.insert(i+1, 0)
-                    y.insert(i+1, y[i] + font_height)
+                    y.insert(i+1, y[i] + inc*font_height)
                 inc +=1
     for i in range(len(text)):
         draw.text(
