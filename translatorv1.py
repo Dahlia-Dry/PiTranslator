@@ -133,11 +133,11 @@ def dictionary(query):
     try:
         print('def:' + dict[query][0] + '\n' + dict[query][1])
         font_width, font_height = write_to_screen(display2, [query + ':', dict[query][0]+','+dict[query][1]],[0,0],[0,font_height])
-        font_width, font_height = write_to_screen(display1, [query,'Add to Journal?'],[font_width,0],[0,font_height],clear=False)
+        font_width, font_height = write_to_screen(display1, ['Search: '+query,'Add to Journal?'],[font_width,0],[0,font_height])
         add = input('Add to Journal?')
         if add == '':
             addtojournal(query)
-            write_to_screen(display1, 'added.',font_width, font_height,clear=False )
+            font_width, font_height = write_to_screen(display1, ['Search: '+query,'Add to Journal? Added.'],[font_width,0],[0,font_height])
     except KeyError:
         font_width, font_height = write_to_screen(display2,query + ' not found.',0,0)
 
