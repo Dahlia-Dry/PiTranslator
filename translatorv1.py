@@ -66,7 +66,7 @@ BLACK = (0x00, 0x00, 0x00)
 RED = (0xFF, 0x00, 0x00)
  # Next define some constants to allow easy resizing of shapes and colors
 BORDER = 20
-FONTSIZE = 18
+FONTSIZE = 14
 BACKGROUND_COLOR = WHITE
 FOREGROUND_COLOR = WHITE
 TEXT_COLOR = BLACK
@@ -105,7 +105,7 @@ def write_to_screen(display, text, x, y, clear=True):
         (font_width, font_height) = font.getsize(text[i])
         if len(text[i]) > 20:
             inc=0
-            for wrap in textwrap.wrap(text[i],20):
+            for wrap in textwrap.wrap(text[i],30):
                 if inc == 0:
                     text[i] = wrap
                 else:

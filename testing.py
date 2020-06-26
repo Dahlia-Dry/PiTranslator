@@ -87,7 +87,7 @@ def testwrap(text,x,y):
                 else:
                     text.insert(i+1, wrap)
                     x.insert(i+1, 0)
-                    y.insert(i+1, y[i] + 10)
+                    y.insert(i+1, y[i] + inc*10)
                 inc +=1
     return text, x,y
 
