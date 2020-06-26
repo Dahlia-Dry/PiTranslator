@@ -6,6 +6,7 @@ import csv
 import pandas as pd
 import datetime
 from pynput import keyboard
+import textwrap
 
 def parse(xml='es-en.xml'):
     #parse xml to dict with format dict['spanish word'] = (english definition, part of speech)
@@ -75,4 +76,19 @@ def main():
     while True:
         pass
 
-main()
+def testwrap(text,x,y):
+    for i in range(len(text)):
+        if len(text[i]) > 20:
+            print('wrapping')
+            inc=0
+            for wrap in textwrap.wrap(text[i],20):
+                if inc == 0:
+                    text[i] = wrap
+                else:
+                    text.insert(i+1, wrap)
+                    x.insert(i+1, 0)
+                    y.insert(i+1, y[i] + 10)
+                inc +=1
+    return text, x,y
+
+print(testwrap(['buscar',"To seek, to search for, to look for,{v}"],[0,0],[0,10]))

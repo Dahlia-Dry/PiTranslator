@@ -96,28 +96,25 @@ def write_to_screen(display, text, x, y, clear=True):
     if clear:
         draw.rectangle((0, 0, display.width, display.height), fill=BACKGROUND_COLOR)
 	# Draw Some Text
-    if type(text) is list:
-        for i in range(len(text)):
-            if len(text[i]) > 20:
-                print('wrapping')
-                for wrap in textwrap.wrap(text[i],20):
+    if type(text) is not list:
+        text = [text]
+
+    for i in range(len(text)):
+        if len(text[i]) > 20:
+            inc=0
+            for wrap in textwrap.wrap(text[i],20):
+                if inc == 0:
+                    text[i] = wrap
+                else:
                     text.insert(i+1, wrap)
                     x.insert(i+1, 0)
-                    y.insert(i+1, y[i] + display.height)
-        for i in range(len(text)):
-            (font_width, font_height) = font.getsize(text[i])
-            draw.text(
-            	(x[i],y[i]),
-            	text[i],
-            	font=font,
-            	fill=TEXT_COLOR,
-        	)
-
-    else:
-    	(font_width, font_height) = font.getsize(text)
-    	draw.text(
-        	(x,y),
-        	text,
+                    y.insert(i+1, y[i] + 10)
+                inc +=1
+    for i in range(len(text)):
+        (font_width, font_height) = font.getsize(text[i])
+        draw.text(
+        	(x[i],y[i]),
+        	text[i],
         	font=font,
         	fill=TEXT_COLOR,
     	)
