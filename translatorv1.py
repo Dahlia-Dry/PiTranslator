@@ -88,10 +88,9 @@ dict = parse()
 #Utility Functions-------------------------------------------------------------
 def write_to_screen(display, text, x, y, clear=True):
     display.rotation = 1
-	image = Image.new("RGB", (display.width, display.height))
-
-	# Get drawing object to draw on image.
-	draw = ImageDraw.Draw(image)
+    image = Image.new("RGB", (display.width, display.height))
+    # Get drawing object to draw on image.
+    draw = ImageDraw.Draw(image)
     #clear screen
     if clear:
         draw.rectangle((0, 0, display.width, display.height), fill=BACKGROUND_COLOR)
@@ -99,7 +98,7 @@ def write_to_screen(display, text, x, y, clear=True):
     if type(text) is list:
         for i in range(len(text)):
             (font_width, font_height) = font.getsize(text[i])
-        	draw.text(
+            draw.text(
             	(x[i],y[i]),
             	text[i],
             	font=font,
@@ -116,8 +115,8 @@ def write_to_screen(display, text, x, y, clear=True):
     	)
     	# Display image.
     	#print('displaying text:')
-	display.image(image)
-	display.display()
+    display.image(image)
+    display.display()
     return font_width, font_height
 
 def dictionary(query):
@@ -126,12 +125,12 @@ def dictionary(query):
     #query = input()
     try:
         print('def:' + dict[query][0] + '\n' + dict[query][1])
-        font_width, font_height = write_to_screen(display2, dict[query][0]+','+dict[query][1],0,0)
-        font_width, font_height = write_to_screen(display1, [query,'Add to Journal?'],[font_width,0],[0,font_height])
+        font_width, font_height = write_to_screen(display2, query + ':' + dict[query][0]+','+dict[query][1],0,0)
+        font_width, font_height = write_to_screen(display1, [query,'Add to Journal?'],[font_width,0],[0,font_height],clear=False)
         add = input('Add to Journal?')
         if add == '':
             addtojournal(query)
-            write_to_screen(display1, 'added.',font_width, font_height )
+            write_to_screen(display1, 'added.',font_width, font_height,clear=False )
     except KeyError:
         font_width, font_height = write_to_screen(display2,query + ' not found.',0,0)
 
@@ -157,6 +156,7 @@ def sortjournal(mode):
 #end utility functions--------------------------------------------------------
 def main():
     query = ""
+    font_width, font_height = write_to_screen(display1,'Search:',0,0) 
     while query != '.':
         query = input()
         if query == '.':

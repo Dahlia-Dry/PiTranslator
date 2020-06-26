@@ -49,12 +49,15 @@ TEXT_COLOR = BLACK
 
 cursor = 0
 
-def drawletter(display, letter, cursor):
+def drawletter(display, letter, c):
 	display.rotation = 1
 	image = Image.new("RGB", (display.width, display.height))
 
 	# Get drawing object to draw on image.
 	draw = ImageDraw.Draw(image)
+	if c == 0:
+		draw.rectangle((0, 0, display.width, display.height),
+			 fill=FOREGROUND_COLOR)
 
 	# Load a TTF Font
 	font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", FONTSIZE)
@@ -63,21 +66,25 @@ def drawletter(display, letter, cursor):
 	text = letter
 	(font_width, font_height) = font.getsize(text)
 	draw.text(
-    	(cursor, 0),
+    	(c, 0),
     	text,
     	font=font,
     	fill=TEXT_COLOR,
 	)
 	# Display image.
-	#print('displaying text:')
+	print('displaying text:')
 	display.image(image)
 	display.display()
-    return font_width
+	print(font_width)
+	return font_width
 
 def on_press(key):
+    global cursor
     try:
         width = drawletter(display1, key.char, cursor)
-        cursor = cursor + font_width
+        print(width)
+        cursor += width
+        print('wrote ',key.char)
     except AttributeError:
         print('special key {0} pressed'.format(
             key))
@@ -92,5 +99,5 @@ def main():
                                 on_release = on_release)
     listener.start()
     while True:
-        pass
+       print('ass')
 main()
