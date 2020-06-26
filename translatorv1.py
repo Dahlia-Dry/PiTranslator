@@ -98,6 +98,8 @@ def write_to_screen(display, text, x, y, clear=True):
 	# Draw Some Text
     if type(text) is not list:
         text = [text]
+        x = [x]
+        y = [y]
 
     for i in range(len(text)):
         (font_width, font_height) = font.getsize(text[i])
