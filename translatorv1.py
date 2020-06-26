@@ -100,6 +100,7 @@ def write_to_screen(display, text, x, y, clear=True):
         text = [text]
 
     for i in range(len(text)):
+        (font_width, font_height) = font.getsize(text[i])
         if len(text[i]) > 20:
             inc=0
             for wrap in textwrap.wrap(text[i],20):
@@ -108,10 +109,9 @@ def write_to_screen(display, text, x, y, clear=True):
                 else:
                     text.insert(i+1, wrap)
                     x.insert(i+1, 0)
-                    y.insert(i+1, y[i] + 10)
+                    y.insert(i+1, y[i] + font_height)
                 inc +=1
     for i in range(len(text)):
-        (font_width, font_height) = font.getsize(text[i])
         draw.text(
         	(x[i],y[i]),
         	text[i],
