@@ -1,8 +1,8 @@
-word,definition,score,created
-locura,"Madness,{f}",0,2020-06-24 16:57:19.599388
-paco,"sniper,{m} [colloquial, Spain]",2,2020-06-24 16:57:22.268351
-péndulo,"pendulum,{m}",1,2020-06-24 16:57:28.904908
-locura,"Madness,{f}",0,2020-06-26 11:15:00.657027
-alrededor,"around,{prep}",0,2020-06-26 11:19:38.291181
-buscar,"To seek, to search for, to look for,{v}",0,2020-06-26 11:20:24.303984
-recoger,"to collect; to gather; to pick up something previously left behind,{v}",0,2020-06-26 18:27:00.596576
+,Unnamed: 0,Unnamed: 0.1,Unnamed: 0.1.1,Unnamed: 0.1.1.1,Unnamed: 0.1.1.1.1,Unnamed: 0.1.1.1.1.1,word,definition,score,created
+0,2,2,3,3,4,6,recoger,"to collect; to gather; to pick up something previously left behind,{v}",0,2020-06-26 18:27:00.596576
+1,5,3,2,2,3,5,buscar,"To seek, to search for, to look for,{v}",2,2020-06-26 11:20:24.303984
+2,0,0,0,1,2,4,alrededor,"around,{prep}",-1,2020-06-26 11:19:38.291181
+3,1,1,1,0,1,3,locura,"Madness,{f}",0,2020-06-26 11:15:00.657027
+4,4,5,5,5,5,2,péndulo,"pendulum,{m}",2,2020-06-24 16:57:28.904908
+5,6,6,6,6,6,1,paco,"sniper,{m} [colloquial, Spain]",3,2020-06-24 16:57:22.268351
+6,3,4,4,4,0,0,locura,"Madness,{f}",0,2020-06-24 16:57:19.599388
