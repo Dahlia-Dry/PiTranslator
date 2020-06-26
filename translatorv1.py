@@ -132,8 +132,8 @@ def dictionary(query):
     #query = input()
     try:
         print('def:' + dict[query][0] + '\n' + dict[query][1])
-        font_width, font_height = write_to_screen(display2, [query + ':', dict[query][0]+','+dict[query][1]],[0,0],[0,font_height])
         font_width, font_height = write_to_screen(display1, ['Search: '+query,'Add to Journal?'],[0,0],[0,font_height])
+        font_width, font_height = write_to_screen(display2, [query + ':', dict[query][0]+','+dict[query][1]],[0,0],[0,font_height])
         add = input('Add to Journal?')
         if add == '':
             addtojournal(query)
@@ -160,15 +160,55 @@ def sortjournal(mode):
         journal = journal.sample(frac=1)
     else:
         raise TypeError('Invalid Mode; use 0,1,2, or 3')
+    return journal
+
+def newcard(index, mode):
+    journal = sortjournal(mode)
+    font_width, font_height = write_to_screen(display1,
+                                            ['Term: ' + journal['definition'].iloc[index]],
+                                            [0],[0])
+    return journal
+
+def checkcard(journal, index, query):
+    if query == journal['word'].iloc[index]:
+        journal['score'].iloc[index] = int(journal['score'].iloc[index])+1
+        font_width, font_height = write_to_screen(display2,
+                                                ['Guess: ' + query, 'Correct! :)'],
+                                                [0,0],[0,font_height])
+    else:
+        journal['score'].iloc[index] = int(journal['score'].iloc[index])-1
+        font_width, font_height = write_to_screen(display2,
+                                                ['Guess: ' + query, 'Wrong :( Correct Word: ' + journal['word'].iloc[index]],
+                                                [0,0],[0,font_height])
+    journal.to_csv('journal.csv')
+
 #end utility functions--------------------------------------------------------
 def main():
     query = ""
     font_width, font_height = write_to_screen(display1,'Search:',0,0)
-    while query != '.':
+    while True:
         query = input()
         if query == '.':
-            pass
+            index = 0
+            mode = 2
+            while query != ',':
+                journal = newcard(index, mode)
+                query = input()
+                if query == '0':
+                    mode = 0
+                    query = input()
+                elif query == '1':
+                    mode = 1
+                    query = input()
+                elif query == '2':
+                    mode =2
+                    query = input()
+                elif query == '3':
+                    mode=3
+                    query = input()
+                checkcard(journal, index, query)
+                index +=1
         else:
-            #font_width, font_height = write_to_screen(display1,'Search: ',0,0)
-            dictionary(query)
+            if query != ',':
+                dictionary(query)
 main()
