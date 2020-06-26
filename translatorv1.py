@@ -99,6 +99,7 @@ def write_to_screen(display, text, x, y, clear=True):
     if type(text) is list:
         for i in range(len(text)):
             if len(text[i]) > 20:
+                print('wrapping')
                 for wrap in textwrap.wrap(text[i],20):
                     text.insert(i+1, wrap)
                     x.insert(i+1, 0)
@@ -133,11 +134,11 @@ def dictionary(query):
     try:
         print('def:' + dict[query][0] + '\n' + dict[query][1])
         font_width, font_height = write_to_screen(display2, [query + ':', dict[query][0]+','+dict[query][1]],[0,0],[0,font_height])
-        font_width, font_height = write_to_screen(display1, ['Search: '+query,'Add to Journal?'],[font_width,0],[0,font_height])
+        font_width, font_height = write_to_screen(display1, ['Search: '+query,'Add to Journal?'],[0,0],[0,font_height])
         add = input('Add to Journal?')
         if add == '':
             addtojournal(query)
-            font_width, font_height = write_to_screen(display1, ['Search: '+query,'Add to Journal? Added.'],[font_width,0],[0,font_height])
+            font_width, font_height = write_to_screen(display1, ['Search: '+query,'Add to Journal? Added.'],[0,0],[0,font_height])
     except KeyError:
         font_width, font_height = write_to_screen(display2,query + ' not found.',0,0)
 
