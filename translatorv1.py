@@ -169,7 +169,7 @@ def newcard(index, mode):
                                             [0],[0])
     return journal
 
-def checkcard(journal, index, query):
+def checkcard(journal, index, query, font_height):
     if query == journal['word'].iloc[index]:
         journal['score'].iloc[index] = int(journal['score'].iloc[index])+1
         font_width, font_height = write_to_screen(display2,
@@ -206,7 +206,7 @@ def main():
                 elif query == '3':
                     mode=3
                     query = input()
-                checkcard(journal, index, query)
+                checkcard(journal, index, query, font_height)
                 index +=1
         else:
             if query != ',':
