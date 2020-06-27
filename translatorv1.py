@@ -140,8 +140,13 @@ def dictionary(query):
         font_width, font_height = write_to_screen(display2, [query + ':', dict[query][0]+','+dict[query][1]],[0,0],[0,font_height])
         add = sys.stdin.readline().strip('\n')
         if add == '':
-            addtojournal(query)
-            font_width, font_height = write_to_screen(display1, ['Search: ',query + 'added to journal.'],[0,0],[0,font_height])
+            journal = pd.read_csv('journal.csv')
+            data = {'word':query, 'definition':dict[query][0] + ',' + dict[query][1],
+                    'score':0,'created':datetime.datetime.now()}
+            journal = journal.append(data, ignore_index=True)
+            journal = removebadcols(journal)
+            journal.to_csv('journal.csv')
+            font_width, font_height = write_to_screen(display1, ['Search: ',query + ' added to journal.'],[0,0],[0,font_height])
         else:
             font_width, font_height = write_to_screen(display1,'Search: ',0,0)
     except KeyError:
@@ -150,7 +155,7 @@ def dictionary(query):
 def addtojournal(query):
     with open('journal.csv','a') as csvfile:
         writer = csv.writer(csvfile)
-        writer.writerow([query,dict[query][0] + ',' + dict[query][1], '0',datetime.datetime.now()])
+        writer.writerow([query,dict[query][0] + ',' + dict[query][1], '0',str(datetime.datetime.now())])
 
 def sortjournal(mode):
     journal = pd.read_csv('journal.csv')
@@ -167,10 +172,16 @@ def sortjournal(mode):
 
 def newcard(index, mode):
     journal = sortjournal(mode)
-    font_width, font_height = write_to_screen(display1,
-                                            ['Term: ' + journal['definition'].iloc[index]],
-                                            [0],[0])
-    return journal
+    try:
+        font_width, font_height = write_to_screen(display1,
+                                                ['Term: ' + journal['definition'].iloc[index]],
+                                                [0],[0])
+    except IndexError:
+        index = 0
+        font_width, font_height = write_to_screen(display1,
+                                                ['Term: ' + journal['definition'].iloc[index]],
+                                                [0],[0])
+    return index, journal
 
 def removebadcols(journal):
     for col in list(journal.columns):
@@ -222,7 +233,7 @@ def main():
             index = 0
             mode = 2
             while query != ',':
-                journal = newcard(index, mode)
+                index, journal = newcard(index, mode)
                 query = sys.stdin.readline().strip('\n')
                 if query == '1':
                     mode = 1
@@ -253,7 +264,7 @@ def main():
                     break
                 else:
                     checkcard(journal, index, query, font_height)
-                    index +=1
+                    index = index + 1
         elif query == '0':
             os.system('sudo reboot')
         elif query == ',':
