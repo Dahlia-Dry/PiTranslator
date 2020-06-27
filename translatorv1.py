@@ -263,12 +263,12 @@ def main():
                     font_width, font_height = write_to_screen(display1,'Search:',0,0)
                     break
                 elif query == '0':
-                    os.system('sudo reboot')
+                    os.system('sudo shutdown -h now')
                 else:
                     checkcard(journal, index, query, font_height)
                     index = index + 1
         elif query == '0':
-            os.system('sudo reboot')
+            os.system('sudo shutdown -h now')
         elif query == ',':
             font_width, font_height = write_to_screen(display1,'Search: ',0,0)
         else:
