@@ -179,20 +179,21 @@ def removebadcols(journal):
 def checkcard(journal, index, query, font_height):
     if query == journal['word'].iloc[index]:
         journal['score'].iloc[index] = int(journal['score'].iloc[index])+1
-        green.value=True
         blue1.value = False
+        green.value=True
         font_width, font_height = write_to_screen(display2,
                                                 ['Guess: ' + query, 'Correct! :)'],
                                                 [0,0],[0,font_height])
         green.value=False
     else:
         journal['score'].iloc[index] = int(journal['score'].iloc[index])-1
-        red.value = True
         blue1.value = False
+        red.value = True
         font_width, font_height = write_to_screen(display2,
                                                 ['Guess: ' + query, 'Wrong :(','Correct Word: ' + journal['word'].iloc[index]],
                                                 [0,0,0],[0,font_height,2*font_height])
         red.value=False
+    blue1.value = False
     journal = removebadcols(journal)
     journal.to_csv('journal.csv')
 
