@@ -132,6 +132,7 @@ def write_to_screen(display, text, x, y, clear=True):
 def dictionary(query):
     #Write top screen as blank search
     #font_width, font_height = write_to_screen(display1,'Search: ',0,0)
+    (font_width, font_height) = font.getsize(query)
     #query = input()
     try:
         print('def:' + dict[query][0] + '\n' + dict[query][1])
