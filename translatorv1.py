@@ -52,8 +52,8 @@ yellow1 = digitalio.DigitalInOut(board.D19)
 yellow1.direction = digitalio.Direction.OUTPUT
 yellow2 = digitalio.DigitalInOut(board.D16)
 yellow2.direction = digitalio.Direction.OUTPUT
-blue1 = digitalio.DigitalInOut(board.D18)
-blue1.direction = digitalio.Direction.OUTPUT
+#blue1 = digitalio.DigitalInOut(board.D18)
+#blue1.direction = digitalio.Direction.OUTPUT
 blue2 = digitalio.DigitalInOut(board.D17)
 blue2.direction = digitalio.Direction.OUTPUT
 white1 = digitalio.DigitalInOut(board.D25)
@@ -89,7 +89,7 @@ dict = parse()
 #End Setup----------------------------------------------------------------------
 #Utility Functions-------------------------------------------------------------
 def write_to_screen(display, text, x, y, clear=True):
-    blue1.value = False
+    #blue1.value = False
     display.rotation = 1
     image = Image.new("RGB", (display.width, display.height))
     # Get drawing object to draw on image.
@@ -126,7 +126,7 @@ def write_to_screen(display, text, x, y, clear=True):
     	#print('displaying text:')
     display.image(image)
     display.display()
-    blue1.value = False
+    #blue1.value = False
     return font_width, font_height
 
 def dictionary(query):
@@ -151,9 +151,6 @@ def addtojournal(query):
 
 def sortjournal(mode):
     journal = pd.read_csv('journal.csv')
-    if mode == 0: #old->new
-        journal['created'] = pd.to_datetime(journal['created'])
-        journal = journal.sort_values(by='created')
     elif mode == 1: #new->old
         journal['created'] = pd.to_datetime(journal['created'])
         journal = journal.sort_values(by='created',ascending=False)
@@ -181,7 +178,7 @@ def removebadcols(journal):
 def checkcard(journal, index, query, font_height):
     if query == journal['word'].iloc[index]:
         journal['score'].iloc[index] = int(journal['score'].iloc[index])+1
-        blue1.value = False
+        #blue1.value = False
         green.value=True
         font_width, font_height = write_to_screen(display2,
                                                 ['Guess: ' + query, 'Correct! :)'],
@@ -189,13 +186,13 @@ def checkcard(journal, index, query, font_height):
         green.value=False
     else:
         journal['score'].iloc[index] = int(journal['score'].iloc[index])-1
-        blue1.value = False
+        #blue1.value = False
         red.value = True
         font_width, font_height = write_to_screen(display2,
                                                 ['Guess: ' + query, 'Wrong :(','Correct Word: ' + journal['word'].iloc[index]],
                                                 [0,0,0],[0,font_height,2*font_height])
         red.value=False
-    blue1.value = False
+    #blue1.value = False
     journal = removebadcols(journal)
     journal.to_csv('journal.csv')
 
@@ -206,11 +203,13 @@ def main():
     red.value = False
     yellow1.value = True
     yellow2.value = False
-    blue1.value = False
+    #blue1.value = False
     white1.value = False
     blue2.value = False
     white2.value = False
-    font_width, font_height = write_to_screen(display1,'Search:',0,0)
+    font_width, font_height = write_to_screen(display1,
+                                            ['Hello! :D', "Enter '.' for flashcards", "Enter',' for dictionary"],
+                                            [0,0,0],[0, 25, 50])
     while True:
         query = sys.stdin.readline().strip('\n')
         if query == '.':
@@ -223,33 +222,27 @@ def main():
                 journal = newcard(index, mode)
                 query = sys.stdin.readline().strip('\n')
                 if query == '1':
-                    mode = 0
-                    blue1.value = True
-                    white1.value = False
-                    blue2.value = False
-                    white2.value = False
-                elif query == '2':
                     mode = 1
-                    blue1.value = False
+                    #blue1.value = False
                     white1.value = True
                     blue2.value = False
                     white2.value = False
-                elif query == '3':
+                elif query == '2':
                     mode =2
-                    blue1.value = False
+                    #blue1.value = False
                     white1.value = False
                     blue2.value = False
                     white2.value = True
-                elif query == '4':
+                elif query == '3':
                     mode=3
-                    blue1.value = False
+                    #blue1.value = False
                     white1.value = False
                     blue2.value = True
                     white2.value = False
                 elif query == ',':
                     yellow1.value=True
                     yellow2.value=False
-                    blue1.value = False
+                    #blue1.value = False
                     white1.value = False
                     blue2.value = False
                     white2.value = False
