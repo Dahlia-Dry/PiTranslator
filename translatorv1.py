@@ -141,7 +141,7 @@ def dictionary(query):
         add = sys.stdin.readline().strip('\n')
         if add == '':
             addtojournal(query)
-            font_width, font_height = write_to_screen(display1, ['Search: '+query,'Add to Journal? Added.'],[0,0],[0,font_height])
+            font_width, font_height = write_to_screen(display1, ['Search: ',query + 'added to journal.'],[0,0],[0,font_height])
         else:
             font_width, font_height = write_to_screen(display1,'Search: ',0,0)
     except KeyError:
