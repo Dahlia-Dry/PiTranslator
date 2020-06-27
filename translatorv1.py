@@ -11,7 +11,6 @@ import csv
 import pandas as pd
 import datetime
 import textwrap
-from pynput import keyboard
 import os
 import sys
 
