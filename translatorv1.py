@@ -151,7 +151,7 @@ def addtojournal(query):
 
 def sortjournal(mode):
     journal = pd.read_csv('journal.csv')
-    elif mode == 1: #new->old
+    if mode == 1: #new->old
         journal['created'] = pd.to_datetime(journal['created'])
         journal = journal.sort_values(by='created',ascending=False)
     elif mode == 2: #low -> high score
@@ -208,7 +208,7 @@ def main():
     blue2.value = False
     white2.value = False
     font_width, font_height = write_to_screen(display1,
-                                            ['Hello! :D', "Enter '.' for flashcards", "Enter',' for dictionary"],
+                                            ['Hello! :D', "Enter . for flashcards", "Enter , for dictionary"],
                                             [0,0,0],[0, 25, 50])
     while True:
         query = sys.stdin.readline().strip('\n')
@@ -254,7 +254,6 @@ def main():
         elif query == '0':
             os.system('sudo reboot')
         else:
-            if query != ',':
-                dictionary(query)
+            dictionary(query)
 
 main()
