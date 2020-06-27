@@ -13,6 +13,7 @@ import datetime
 import textwrap
 from pynput import keyboard
 import os
+import sys
 
 #SETUP:
 #EINK 1---------------------------------------------------------------------
@@ -135,7 +136,7 @@ def dictionary(query):
         print('def:' + dict[query][0] + '\n' + dict[query][1])
         font_width, font_height = write_to_screen(display1, ['Search: '+query,'Add to Journal?'],[0,0],[0,font_height])
         font_width, font_height = write_to_screen(display2, [query + ':', dict[query][0]+','+dict[query][1]],[0,0],[0,font_height])
-        add = input('Add to Journal?')
+        add = sys.stdin.readline().strip('\n')
         if add == '':
             addtojournal(query)
             font_width, font_height = write_to_screen(display1, ['Search: '+query,'Add to Journal? Added.'],[0,0],[0,font_height])
@@ -207,7 +208,7 @@ def main():
     white2.value = False
     font_width, font_height = write_to_screen(display1,'Search:',0,0)
     while True:
-        query = input()
+        query = sys.stdin.readline().strip('\n')
         if query == '.':
             yellow1.value=False
             yellow2.value=True
@@ -216,7 +217,7 @@ def main():
             mode = 2
             while query != ',':
                 journal = newcard(index, mode)
-                query = input()
+                query = sys.stdin.readline().strip('\n')
                 if query == '1':
                     mode = 0
                     blue1.value = True
