@@ -253,7 +253,8 @@ def main():
                     index +=1
         elif query == '0':
             os.system('sudo reboot')
+        elif query == ',':
+            font_width, font_height = write_to_screen(display1,'Search: ',0,0)
         else:
             dictionary(query)
-
 main()
