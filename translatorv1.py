@@ -12,6 +12,7 @@ import pandas as pd
 import datetime
 import textwrap
 from pynput import keyboard
+import os
 
 #SETUP:
 #EINK 1---------------------------------------------------------------------
@@ -216,34 +217,30 @@ def main():
             while query != ',':
                 journal = newcard(index, mode)
                 query = input()
-                if query == '0':
+                if query == '1':
                     mode = 0
                     blue1.value = True
                     white1.value = False
                     blue2.value = False
                     white2.value = False
-                    query = input()
-                elif query == '1':
+                elif query == '2':
                     mode = 1
                     blue1.value = False
                     white1.value = True
                     blue2.value = False
                     white2.value = False
-                    query = input()
-                elif query == '2':
+                elif query == '3':
                     mode =2
                     blue1.value = False
                     white1.value = False
                     blue2.value = False
                     white2.value = True
-                    query = input()
-                elif query == '3':
+                elif query == '4':
                     mode=3
                     blue1.value = False
                     white1.value = False
                     blue2.value = True
                     white2.value = False
-                    query = input()
                 elif query == ',':
                     yellow1.value=True
                     yellow2.value=False
@@ -251,12 +248,15 @@ def main():
                     white1.value = False
                     blue2.value = False
                     white2.value = False
+                    font_width, font_height = write_to_screen(display1,'Search:',0,0)
                     break
-                checkcard(journal, index, query, font_height)
-                index +=1
+                else:
+                    checkcard(journal, index, query, font_height)
+                    index +=1
+        elif query == '0':
+            os.system('sudo reboot')
         else:
             if query != ',':
                 dictionary(query)
-            else:
-                font_width, font_height = write_to_screen(display1,'Search:',0,0)
+
 main()
