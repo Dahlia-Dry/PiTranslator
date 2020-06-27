@@ -89,6 +89,7 @@ dict = parse()
 #End Setup----------------------------------------------------------------------
 #Utility Functions-------------------------------------------------------------
 def write_to_screen(display, text, x, y, clear=True):
+    blue1.value = False
     display.rotation = 1
     image = Image.new("RGB", (display.width, display.height))
     # Get drawing object to draw on image.
@@ -125,6 +126,7 @@ def write_to_screen(display, text, x, y, clear=True):
     	#print('displaying text:')
     display.image(image)
     display.display()
+    blue1.value = False
     return font_width, font_height
 
 def dictionary(query):
