@@ -169,6 +169,12 @@ def newcard(index, mode):
                                             [0],[0])
     return journal
 
+def removebadcols(journal):
+    for col in list(journal.columns):
+        if 'Unnamed' in col:
+            journal = journal.drop(columns=[col])
+    return journal
+
 def checkcard(journal, index, query, font_height):
     if query == journal['word'].iloc[index]:
         journal['score'].iloc[index] = int(journal['score'].iloc[index])+1
@@ -178,8 +184,9 @@ def checkcard(journal, index, query, font_height):
     else:
         journal['score'].iloc[index] = int(journal['score'].iloc[index])-1
         font_width, font_height = write_to_screen(display2,
-                                                ['Guess: ' + query, 'Wrong :( Correct Word: ' + journal['word'].iloc[index]],
-                                                [0,0],[0,font_height])
+                                                ['Guess: ' + query, 'Wrong :(','Correct Word: ' + journal['word'].iloc[index]],
+                                                [0,0,0],[0,font_height,2*font_height])
+    journal = removebadcols(journal)
     journal.to_csv('journal.csv')
 
 #end utility functions--------------------------------------------------------
@@ -206,6 +213,8 @@ def main():
                 elif query == '3':
                     mode=3
                     query = input()
+                elif query == ',':
+                    break
                 checkcard(journal, index, query, font_height)
                 index +=1
         else:
