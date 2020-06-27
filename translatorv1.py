@@ -136,8 +136,8 @@ def dictionary(query):
     #query = input()
     try:
         print('def:' + dict[query][0] + '\n' + dict[query][1])
-        font_width, font_height = write_to_screen(display1, ['Search: '+query,'Add to Journal?'],[0,0],[0,font_height])
         font_width, font_height = write_to_screen(display2, [query + ':', dict[query][0]+','+dict[query][1]],[0,0],[0,font_height])
+        font_width, font_height = write_to_screen(display1, ['Search: '+query,'Add to Journal?'],[0,0],[0,font_height])
         add = sys.stdin.readline().strip('\n')
         if add == '':
             journal = pd.read_csv('journal.csv')
