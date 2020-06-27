@@ -262,6 +262,8 @@ def main():
                     white2.value = False
                     font_width, font_height = write_to_screen(display1,'Search:',0,0)
                     break
+                elif query == '0':
+                    os.system('sudo reboot')
                 else:
                     checkcard(journal, index, query, font_height)
                     index = index + 1
