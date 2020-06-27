@@ -178,24 +178,39 @@ def removebadcols(journal):
 def checkcard(journal, index, query, font_height):
     if query == journal['word'].iloc[index]:
         journal['score'].iloc[index] = int(journal['score'].iloc[index])+1
+        green.value=True
         font_width, font_height = write_to_screen(display2,
                                                 ['Guess: ' + query, 'Correct! :)'],
                                                 [0,0],[0,font_height])
+        green.value=False
     else:
         journal['score'].iloc[index] = int(journal['score'].iloc[index])-1
+        red.value = True
         font_width, font_height = write_to_screen(display2,
                                                 ['Guess: ' + query, 'Wrong :(','Correct Word: ' + journal['word'].iloc[index]],
                                                 [0,0,0],[0,font_height,2*font_height])
+        red.value=False
     journal = removebadcols(journal)
     journal.to_csv('journal.csv')
 
 #end utility functions--------------------------------------------------------
 def main():
     query = ""
+    green.value = False
+    red.value = False
+    yellow1.value = True
+    yellow2.value = False
+    blue1.value = False
+    white1.value = False
+    blue2.value = False
+    white2.value = False
     font_width, font_height = write_to_screen(display1,'Search:',0,0)
     while True:
         query = input()
         if query == '.':
+            yellow1.value=False
+            yellow2.value=True
+            white2.value=True #mode 2
             index = 0
             mode = 2
             while query != ',':
@@ -203,21 +218,45 @@ def main():
                 query = input()
                 if query == '0':
                     mode = 0
+                    blue1.value = True
+                    white1.value = False
+                    blue2.value = False
+                    white2.value = False
                     query = input()
                 elif query == '1':
                     mode = 1
+                    blue1.value = False
+                    white1.value = True
+                    blue2.value = False
+                    white2.value = False
                     query = input()
                 elif query == '2':
                     mode =2
+                    blue1.value = False
+                    white1.value = False
+                    blue2.value = False
+                    white2.value = True
                     query = input()
                 elif query == '3':
                     mode=3
+                    blue1.value = False
+                    white1.value = False
+                    blue2.value = True
+                    white2.value = False
                     query = input()
                 elif query == ',':
+                    yellow1.value=True
+                    yellow2.value=False
+                    blue1.value = False
+                    white1.value = False
+                    blue2.value = False
+                    white2.value = False
                     break
                 checkcard(journal, index, query, font_height)
                 index +=1
         else:
             if query != ',':
                 dictionary(query)
+            else:
+                font_width, font_height = write_to_screen(display1,'Search:',0,0)
 main()
