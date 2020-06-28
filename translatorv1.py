@@ -88,6 +88,11 @@ def parse(xml='es-en.xml'):
 dict = parse()
 #End Setup----------------------------------------------------------------------
 #Utility Functions-------------------------------------------------------------
+def clearscreen(display):
+    draw.rectangle((0, 0, display.width, display.height), fill=BACKGROUND_COLOR)
+    display.image(image)
+	display.display()
+
 def write_to_screen(display, text, x, y, clear=True):
     #blue1.value = False
     display.rotation = 3
@@ -263,11 +268,15 @@ def main():
                     font_width, font_height = write_to_screen(display1,'Search:',0,0)
                     break
                 elif query == '0':
+                    clearscreen(display1)
+                    clearscreen(display2)
                     os.system('sudo shutdown -h now')
                 else:
                     checkcard(journal, index, query, font_height)
                     index = index + 1
         elif query == '0':
+            clearscreen(display1)
+            clearscreen(display2)
             os.system('sudo shutdown -h now')
         elif query == ',':
             font_width, font_height = write_to_screen(display1,'Search: ',0,0)
