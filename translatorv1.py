@@ -89,6 +89,10 @@ dict = parse()
 #End Setup----------------------------------------------------------------------
 #Utility Functions-------------------------------------------------------------
 def clearscreen(display):
+    display.rotation = 3
+	image = Image.new("RGB", (display.width, display.height))
+	# Get drawing object to draw on image.
+	draw = ImageDraw.Draw(image)
     draw.rectangle((0, 0, display.width, display.height), fill=BACKGROUND_COLOR)
     display.image(image)
 	display.display()
