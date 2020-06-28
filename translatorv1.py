@@ -54,11 +54,11 @@ yellow2 = digitalio.DigitalInOut(board.D16)
 yellow2.direction = digitalio.Direction.OUTPUT
 #blue1 = digitalio.DigitalInOut(board.D18)
 #blue1.direction = digitalio.Direction.OUTPUT
-blue2 = digitalio.DigitalInOut(board.D25)
+blue2 = digitalio.DigitalInOut(board.CE1)
 blue2.direction = digitalio.Direction.OUTPUT
 white1 = digitalio.DigitalInOut(board.D17)
 white1.direction = digitalio.Direction.OUTPUT
-white2 = digitalio.DigitalInOut(board.CE1)
+white2 = digitalio.DigitalInOut(board.D25)
 white2.direction = digitalio.Direction.OUTPUT
 
 # First define some color constants
